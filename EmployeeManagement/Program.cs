@@ -1,4 +1,5 @@
 using EmployeeManagement.Data;
+using EmployeeManagement.Repository;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.InMemory;
 namespace EmployeeManagement
@@ -22,6 +23,14 @@ namespace EmployeeManagement
                         .AllowAnyMethod();
                 });
             });
+
+            //Adding a service (EmployeeRepository) to our DI in the lifetime httpRequest
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository > ();
+
+            //to do unit testing, using TestCases and not the DB
+            //builder.Services.AddScoped<IEmployeeRepository, MockEmployeeRepository > ();
+
+            builder.Services.AddControllers();
 
             var app = builder.Build();
 
