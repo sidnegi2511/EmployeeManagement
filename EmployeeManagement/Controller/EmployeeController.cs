@@ -24,19 +24,18 @@ namespace EmployeeManagement.Controller
 
         [Route("add-employee")]
         [HttpPost]
-        public ActionResult<EmployeeModel> AddEmployee(EmployeeModel model)
+        public async Task<ActionResult<EmployeeModel>> AddEmployee(EmployeeModel model)
         {
-            return Ok();
+            await _employeeRepository.AddEmployeeAsync(model);
+            return Created(); //status 201
         }
 
         [Route("get-all-employees")]
         [HttpGet]
-        public List<EmployeeModel> GetAllEmployee()
+        public async Task<ActionResult<IEnumerable<EmployeeModel>>> GetAllEmployee()
         {
-            var res = Queries.GetResult<List<EmployeeModel>, GetAllAsync>(
-                new GetAllAsync);
-            return res;
-
+            var res = await _employeeRepository.GetAllAsync();
+            return Ok(res);
         }
     }
 }
