@@ -25,15 +25,14 @@ namespace EmployeeManagement
             });
 
             //Adding a service (EmployeeRepository) to our DI in the lifetime httpRequest
-            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository > ();
+            builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
             //to do unit testing, using TestCases and not the DB
             //builder.Services.AddScoped<IEmployeeRepository, MockEmployeeRepository > ();
 
             builder.Services.AddControllers();
 
-            builder.Services.AddEndpointsApiExplorer();
-
+            builder.Services.AddEndpointsApiExplorer(); //helps to find all method in our controller
             builder.Services.AddSwaggerGen();
 
             var app = builder.Build();

@@ -1,5 +1,6 @@
 ﻿using EmployeeManagement.Data;
 using EmployeeManagement.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace EmployeeManagement.Repository
@@ -20,7 +21,7 @@ namespace EmployeeManagement.Repository
             return await _context.Employees.ToListAsync();
         }
 
-        public async Task<EmployeeModel?> GetIdAsync(int id)
+        public async Task<EmployeeModel?> GetEmployeeByIdAsync(int id)
         {
             return await _context.Employees.FindAsync(id);
         }
@@ -32,6 +33,11 @@ namespace EmployeeManagement.Repository
 
         public async Task UpdateEmployeeAsync(EmployeeModel model)
         {
+            var data = _context.Employees.Where(x => x.ID == model.ID).FirstOrDefault();
+            if(data == null)
+            {
+                throw new KeyNotFoundException($"Employee with Id {model.ID} doesnot exist in the DB.") ;
+            }
              _context.Employees.Update(model);
              await _context.SaveChangesAsync();
         }
