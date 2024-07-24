@@ -1,1 +1,26 @@
-<p>employee-form works!</p>
+<h2> Create Employee</h2>
+
+<form (ngSubmit)="onSubmit()">
+    <div>
+        <label>First Name</label>
+        <input type="text" name="firstName" [(ngModel)]="form.firstName">
+    </div>
+    <div>
+        <label>Last Name</label>
+        <input type="text" name="lastName" [(ngModel)]="form.lastName">
+    </div>
+    <div>
+        <label>Phone</label>
+        <input type="phone" name="phone" [(ngModel)]="form.phone">
+    </div>
+    <div>
+        <label>Email</label>
+        <input type="email" name="email" [(ngModel)]="form.email">
+    </div>
+    <div>
+        <label>Position</label>
+        <input type="text" name="position" [(ngModel)]="form.position">
+    </div>
+
+    <button type="submit">CREATE </button>
+</form>

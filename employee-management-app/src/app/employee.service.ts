@@ -21,8 +21,8 @@ export class EmployeeService {
       return this.http.get<Employee[]>(this.apiUrl + '/get-all-employees')
   }
 
-  // addEmployee(data: Employee)
-  // {
-  //   return this.http.post<Employee>(this.apiUrl + "/add-employee", employee: Employee);
-  // }
+  createEmployee(data: Employee) : Observable<Employee>
+  {
+    return this.http.post<Employee>(this.apiUrl + "/add-employee", data);
+  }
 }
