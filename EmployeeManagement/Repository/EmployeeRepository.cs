@@ -33,13 +33,20 @@ namespace EmployeeManagement.Repository
 
         public async Task UpdateEmployeeAsync(EmployeeModel model)
         {
-            var data = _context.Employees.Where(x => x.ID == model.ID).FirstOrDefault();
-            if(data == null)
+            var data = _context.Employees.FirstOrDefault(x => x.ID == model.ID);
+            if (data == null)
             {
-                throw new KeyNotFoundException($"Employee with Id {model.ID} doesnot exist in the DB.") ;
+                throw new KeyNotFoundException($"Employee with Id {model.ID} does not exist in the DB.");
             }
-             _context.Employees.Update(model);
-             await _context.SaveChangesAsync();
+            // Update the properties of the existing entity
+            data.FirstName = model.FirstName;
+            data.LastName = model.LastName;
+            data.Position = model.Position;
+            data.Email = model.Email;
+            data.Phone = model.Phone;
+
+            _context.Employees.Update(data);
+            await _context.SaveChangesAsync();
         }
         public async Task DeleteEmployeeAsync(int id)
         {
