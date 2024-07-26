@@ -42,7 +42,7 @@ export class EmployeeFormComponent implements OnInit{
               this.form = res;
             },
             error: (err) => {
-              this.errorMessage = err;
+              this.errorMessage = "Error Message: " + err.status;
             }
         })
         }
@@ -50,9 +50,16 @@ export class EmployeeFormComponent implements OnInit{
       })
     }
 
-  CreateForm() {
-    // this.form = this.fb.group({
-    // });
+  allowNumeric(event : any)
+  {
+    var regex = new RegExp("^[0-9 ]+$");
+    var str = String.fromCharCode(!event.charCode ? event.which : event.charCode);
+    if (regex.test(str)) {
+        return true;
+    }
+
+    event.preventDefault();
+    return false;
   }
 
   onSubmit(): void {
